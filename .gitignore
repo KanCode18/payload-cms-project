@@ -1,0 +1,18 @@
+# dependencies
+node_modules/
+
+# next.js (IMPORTANT)
+.next/
+**/.next/
+
+# builds
+dist/
+build/
+
+# env
+.env
+.env.*
+.env.local
+
+# editor
+.vscode/

@@ -1,0 +1,17 @@
+import { CollectionConfig } from 'payload';
+
+export const ContactSubmission: CollectionConfig = {
+  slug: 'contact-submissions',
+  admin: {
+    useAsTitle: 'email',
+  },
+  access: {
+    read: () => true, 
+    create: () => true,
+  },
+  fields: [
+    { name: 'name', type: 'text', required: true },
+    { name: 'email', type: 'email', required: true },
+    { name: 'message', type: 'textarea', required: true },
+  ],
+};
