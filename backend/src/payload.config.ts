@@ -17,20 +17,28 @@ import { Features } from './blocks/Features'
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
-export default buildConfig({
-
-  cors: [
+const getCorsOrigins = () => {
+  const origins = [
     'http://localhost:3000', 
     'http://localhost:3001', 
     'http://127.0.0.1:3000',
     'http://127.0.0.1:3001',
-  ],
-  csrf: [  // Whitelists for cookie auth—must include frontend
-    'http://localhost:3000',
-    'http://localhost:3001',
-    'http://127.0.0.1:3000',
-    'http://127.0.0.1:3001',
-  ],
+  ]
+  
+  if (process.env.FRONTEND_URL) {
+    origins.push(process.env.FRONTEND_URL)
+  }
+  if (process.env.NODE_ENV === 'production' && process.env.FRONTEND_URL) {
+    origins.push(process.env.FRONTEND_URL)
+  }
+  
+  return origins
+}
+
+export default buildConfig({
+
+  cors: getCorsOrigins(),
+  csrf: getCorsOrigins(),
 
   admin: {
     user: Users.slug,
